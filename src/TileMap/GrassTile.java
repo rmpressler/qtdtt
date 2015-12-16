@@ -5,6 +5,12 @@ public class GrassTile extends Tile{
 		super(id);
 		
 		this.setWalkable(true);
-		this.setImg(TileImage.getImage("grass"));
+		int grassChoice = (int)(Math.random() * 10);
+		if(grassChoice < 9) {
+			this.setImg(TileImage.getImage("grass_2"));
+		}
+		else {
+			this.setImg(TileImage.getImage("grass"));
+		}
 	}
 }
