@@ -2,7 +2,6 @@ package GameState;
 
 import java.awt.Graphics2D;
 import java.awt.Image;
-import java.awt.event.MouseEvent;
 
 import Game.Config;
 import TileMap.TileFactory;
@@ -56,15 +55,4 @@ public class EditState extends GameState {
 			g.drawLine(0, i * tileSize, windowSize,  i * tileSize);
 		}
 	}
-	
-	@Override
-	public void keyPressed(int key) {}
-	@Override
-	public void keyReleased(int key) {}
-	@Override
-	public void mousePressed(MouseEvent e) {}
-	@Override
-	public void mouseReleased(MouseEvent e) {}
-	@Override
-	public void mouseDragged(MouseEvent e) {}
 }

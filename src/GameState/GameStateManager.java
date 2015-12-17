@@ -1,13 +1,15 @@
 package GameState;
 
 import java.awt.Graphics2D;
-import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 
 public class GameStateManager {
 	private ArrayList<GameState> states;
 	
 	private int currentState;
+	
+	public static final int PLAYSTATE = 0;
+	public static final int EDITSTATE = 1;
 	
 	public GameStateManager() {
 		states = new ArrayList<GameState>();
@@ -19,31 +21,15 @@ public class GameStateManager {
 		currentState = 0;
 	}
 	
+	public int getState() {
+		return currentState;
+	}
+	
 	public void update() {
 		states.get(currentState).update();
 	}
 	
 	public void draw(Graphics2D g) {
 		states.get(currentState).draw(g);
-	}
-	
-	public void keyPressed(int key) {
-		states.get(currentState).keyPressed(key);
-	}
-	
-	public void keyReleased(int key) {
-		states.get(currentState).keyReleased(key);
-	}
-	
-	public void mousePressed(MouseEvent e) {
-		states.get(currentState).mousePressed(e);
-	}
-	
-	public void mouseReleased(MouseEvent e) {
-		states.get(currentState).mouseReleased(e);
-	}
-
-	public void mouseDragged(MouseEvent e) {
-		states.get(currentState).mouseDragged(e);
 	}
 }

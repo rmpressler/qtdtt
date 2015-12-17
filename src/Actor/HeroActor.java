@@ -1,7 +1,5 @@
 package Actor;
 
-import java.awt.event.KeyEvent;
-
 import Animation.ActorAnimator;
 import Camera.ImageData;
 import Game.Config;
@@ -18,33 +16,37 @@ public class HeroActor extends Actor{
 		img = animate.getImage();
 	}
 	
-	public void keyPressed(int key) {
-		if(key == KeyEvent.VK_UP || key == KeyEvent.VK_W) {
-			movingUp = true;
-		}
-		else if(key == KeyEvent.VK_DOWN || key == KeyEvent.VK_S) {
-			movingDown = true;
-		}
-		else if(key == KeyEvent.VK_LEFT || key == KeyEvent.VK_A) {
-			movingLeft = true;
-		}
-		else if(key == KeyEvent.VK_RIGHT || key == KeyEvent.VK_D) {
-			movingRight = true;
+	public void startMove(String direction) {
+		switch(direction) {
+			case "up":
+				movingUp = true;
+				break;
+			case "down":
+				movingDown = true;
+				break;
+			case "left":
+				movingLeft = true;
+				break;
+			case "right":
+				movingRight = true;
+				break;
 		}
 	}
 	
-	public void keyReleased(int key) {
-		if(key == KeyEvent.VK_UP || key == KeyEvent.VK_W) {
-			movingUp = false;
-		}
-		else if(key == KeyEvent.VK_DOWN || key == KeyEvent.VK_S) {
-			movingDown = false;
-		}
-		else if(key == KeyEvent.VK_LEFT || key == KeyEvent.VK_A) {
-			movingLeft = false;
-		}
-		else if(key == KeyEvent.VK_RIGHT || key == KeyEvent.VK_D) {
-			movingRight = false;
+	public void stopMove(String direction) {
+		switch(direction) {
+			case "up":
+				movingUp = false;
+				break;
+			case "down":
+				movingDown = false;
+				break;
+			case "left":
+				movingLeft = false;
+				break;
+			case "right":
+				movingRight = false;
+				break;
 		}
 	}
 

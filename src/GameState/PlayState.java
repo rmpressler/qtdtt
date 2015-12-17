@@ -1,9 +1,9 @@
 package GameState;
 
 import java.awt.Graphics2D;
-import java.awt.event.MouseEvent;
 
 import Camera.Camera;
+import Input.PlayInputHandler;
 import World.World;
 import net.java.games.input.*;
 
@@ -27,6 +27,7 @@ public class PlayState extends GameState {
 	public void init() {
 		world = new World(".\\assets\\maps\\sandbox.map");
 		view = new Camera(world, 10);
+		PlayInputHandler.setWorld(world);
 	}
 
 	@Override
@@ -39,19 +40,4 @@ public class PlayState extends GameState {
 	public void draw(Graphics2D g) {
 		view.draw(g);
 	}
-	
-	@Override
-	public void keyPressed(int key) {
-		world.getHero().keyPressed(key);
-	}
-	@Override
-	public void keyReleased(int key) {
-		world.getHero().keyReleased(key);
-	}
-	@Override
-	public void mousePressed(MouseEvent e) {}
-	@Override
-	public void mouseReleased(MouseEvent e) {}
-	@Override
-	public void mouseDragged(MouseEvent e) {}
 }
