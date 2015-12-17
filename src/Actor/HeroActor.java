@@ -18,31 +18,31 @@ public class HeroActor extends Actor{
 	}
 	
 	public void keyPressed(int key) {
-		if(key == KeyEvent.VK_UP) {
+		if(key == KeyEvent.VK_UP || key == KeyEvent.VK_W) {
 			movingUp = true;
 		}
-		else if(key == KeyEvent.VK_DOWN) {
+		else if(key == KeyEvent.VK_DOWN || key == KeyEvent.VK_S) {
 			movingDown = true;
 		}
-		else if(key == KeyEvent.VK_LEFT) {
+		else if(key == KeyEvent.VK_LEFT || key == KeyEvent.VK_A) {
 			movingLeft = true;
 		}
-		else if(key == KeyEvent.VK_RIGHT) {
+		else if(key == KeyEvent.VK_RIGHT || key == KeyEvent.VK_D) {
 			movingRight = true;
 		}
 	}
 	
 	public void keyReleased(int key) {
-		if(key == KeyEvent.VK_UP) {
+		if(key == KeyEvent.VK_UP || key == KeyEvent.VK_W) {
 			movingUp = false;
 		}
-		else if(key == KeyEvent.VK_DOWN) {
+		else if(key == KeyEvent.VK_DOWN || key == KeyEvent.VK_S) {
 			movingDown = false;
 		}
-		else if(key == KeyEvent.VK_LEFT) {
+		else if(key == KeyEvent.VK_LEFT || key == KeyEvent.VK_A) {
 			movingLeft = false;
 		}
-		else if(key == KeyEvent.VK_RIGHT) {
+		else if(key == KeyEvent.VK_RIGHT || key == KeyEvent.VK_D) {
 			movingRight = false;
 		}
 	}
