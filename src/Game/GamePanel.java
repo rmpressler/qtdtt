@@ -7,6 +7,7 @@ import javax.swing.JPanel;
 
 import GameState.GameStateManager;
 import Input.InputHandler;
+import Input.Joystick;
 import Input.Keyboard;
 
 @SuppressWarnings("serial")
@@ -15,6 +16,7 @@ public class GamePanel extends JPanel implements Runnable{
 	
 	private GameStateManager gsm;
 	private Keyboard kb;
+	private Joystick js;
 	private Thread thread;
 	private BufferedImage img;
 	private Graphics2D buffer;
@@ -49,6 +51,7 @@ public class GamePanel extends JPanel implements Runnable{
 	public void run() {
 		gsm = new GameStateManager();
 		kb = new Keyboard();
+		js = new Joystick();
 		InputHandler.setStateManager(gsm);
 		
 		img = new BufferedImage(WINDOW_SIZE, WINDOW_SIZE, BufferedImage.TYPE_INT_RGB);
