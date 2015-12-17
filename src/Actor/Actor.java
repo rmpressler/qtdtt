@@ -3,10 +3,12 @@ package Actor;
 import java.awt.image.BufferedImage;
 
 import Animation.ActorAnimator;
+import Camera.ImageData;
+import Camera.Renderable;
 import Game.Config;
 import TileMap.TileMap;
 
-public abstract class Actor {
+public abstract class Actor implements Renderable {
 	protected int x;		//location in pixels relative to top left of level
 	protected int y;		//location in pixels relative to top left of level
 	protected int width;	//width of sprite
@@ -188,5 +190,10 @@ public abstract class Actor {
 	
 	public BufferedImage getImg() {
 		return img;
+	}
+	
+	@Override
+	public ImageData getImageData() {
+		return new ImageData(img, x, y);
 	}
 }

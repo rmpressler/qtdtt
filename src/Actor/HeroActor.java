@@ -3,6 +3,7 @@ package Actor;
 import java.awt.event.KeyEvent;
 
 import Animation.ActorAnimator;
+import Camera.ImageData;
 import Game.Config;
 import TileMap.TileMap;
 
@@ -45,5 +46,10 @@ public class HeroActor extends Actor{
 		else if(key == KeyEvent.VK_RIGHT || key == KeyEvent.VK_D) {
 			movingRight = false;
 		}
+	}
+
+	@Override
+	public ImageData getImageData() {
+		return new ImageData(img, x, y);
 	}
 }

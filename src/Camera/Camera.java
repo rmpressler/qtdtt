@@ -5,21 +5,22 @@ import java.awt.Graphics2D;
 import Actor.HeroActor;
 import Game.Config;
 import TileMap.TileMap;
+import World.World;
 
 public class Camera {
 	private int x;
 	private int y;
 	private int width;
 	private int height;
+
+	private HeroActor hero;		//Actor to sync to
+	private TileMap tm;			//TileMap to paint
+	private World world;
 	
-	private HeroActor hero;
-	private TileMap tm;
-	private int actorX;
-	private int actorY;
-	
-	public Camera(TileMap tm, HeroActor hero, int size) {
-		this.tm = tm;
-		this.hero = hero;
+	public Camera(World world, int size) {
+		this.world = world;
+		this.tm = world.getTileMap();
+		this.hero = world.getHero();
 		this.x = hero.getX();				//x location on tilemap in pixels
 		this.y = hero.getY();				//y location on tilemap in pixels
 		this.width = size;
@@ -27,8 +28,8 @@ public class Camera {
 	}
 	
 	public void update() {
-		actorX = hero.getX();
-		actorY = hero.getY();
+		int actorX = hero.getX();
+		int actorY = hero.getY();
 		
 		x = actorX - ((width * Config.TILE_SIZE) / 2);
 		y = actorY - ((height * Config.TILE_SIZE) / 2);
@@ -67,6 +68,25 @@ public class Camera {
 		}
 		
 		//Draw any visible actors
-		g.drawImage(hero.getImg(), hero.getX() - x, hero.getY() - y, null);
+		//g.drawImage(hero.getImg(), hero.getX() - x, hero.getY() - y, null);
+		Renderable[] renderables = world.getRenderables();
+		for(Renderable r : renderables) {			
+			//Get image data
+			ImageData iData = r.getImageData();
+			
+			//Create local copies of location/dimensions to reduce calls to getters
+			int imgX1 = iData.getX() - x;						//left edge (on screen)
+			int imgY1 = iData.getY() - y;						//top edge (on screen)
+			int imgX2 = imgX1 + iData.getImg().getWidth() - x;	//right edge (on screen)
+			int imgY2 = imgY1 + iData.getImg().getHeight() - y;	//bottom edge (on screen)
+			
+			//If image is off screen, skip
+			if(imgX1 < 0 || imgY1 < 0
+					|| imgX2 > x + (width * Config.TILE_SIZE)
+					|| imgY2 > y + (height * Config.TILE_SIZE)) continue;
+			
+			//Paint image to screen
+			g.drawImage(iData.getImg(), imgX1, imgY1, null);
+		}
 	}
 }

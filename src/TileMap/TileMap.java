@@ -35,16 +35,10 @@ public class TileMap {
 		tiles[x][y] = TileFactory.createTile(id);
 	}
 	
-	public void loadMap() {
-		
-		//Prompt user to choose location to open from
-		JFileChooser fileChooser = new JFileChooser();
-		fileChooser.showOpenDialog(null);
-		
+	public void loadMap(String location) {
 		FileReader fileReader;
 		try {
-			//fileReader = new FileReader(fileChooser.getSelectedFile());
-			fileReader = new FileReader(new File(".\\assets\\maps\\sandbox.map"));
+			fileReader = new FileReader(new File(location));
 			BufferedReader bufferedReader = new BufferedReader(fileReader);
 			
 			//read dimensions from first line
@@ -97,8 +91,8 @@ public class TileMap {
 		}
 	}
 	
-	public TileMap() {
-		loadMap();
+	public TileMap(String location) {
+		loadMap(location);
 	}
 	
 	public TileMap(int width, int height) {
