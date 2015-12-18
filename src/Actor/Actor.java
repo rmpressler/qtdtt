@@ -7,6 +7,7 @@ import Camera.ImageData;
 import Camera.Renderable;
 import Game.Config;
 import TileMap.TileMap;
+import World.World;
 
 public abstract class Actor implements Renderable {
 	protected int x;		//location in pixels relative to top left of level
@@ -31,15 +32,12 @@ public abstract class Actor implements Renderable {
 	protected ActorAnimator animate;
 	protected TileMap tm;
 	
-	public Actor(int x, int y, TileMap tm) {
-		this.x = x;
-		this.y = y;
-		
+	public Actor(TileMap tm) {
 		this.speed = 3;
 		this.tm = tm;
 		
-		dx = 4;
-		dy = 4;
+		dx = 0;
+		dy = 0;
 		
 		direction = "down";
 		moving = false;
@@ -49,7 +47,12 @@ public abstract class Actor implements Renderable {
 		movingRight = false;
 	}
 	
-	protected boolean isMoving() {
+	public void setStart(int x, int y) {
+		this.x = x;
+		this.y = y;
+	}
+	
+	public boolean isMoving() {
 		return moving;
 	}
 	
@@ -79,64 +82,39 @@ public abstract class Actor implements Renderable {
 			dy += speed;
 		}
 		
-		//determine direction
-		if(dx > 0 && dy == 0) {
-			direction = "right";
+		if(dx != 0 || dy != 0) {
+			direction = World.getDirection(dx, dy);
 			moving = true;
 		}
-		else if(dx < 0 && dy == 0) {
-			direction = "left";
-			moving = true;
-		}
-		else if(dy > 0 && dx == 0) {
-			direction = "down";
-			moving = true;
-		}
-		else if(dy < 0 && dx == 0) {
-			direction = "up";
-			moving = true;
-		}
-		else if(dx > 0 && dy > 0) {
-			direction = "down_right";
-			moving = true;
-		}
-		else if(dx < 0 && dy > 0) {
-			direction = "down_left";
-			moving = true;
-		}
-		else if(dx > 0 && dy < 0) {
-			direction = "up_right";
-			moving = true;
-		}
-		else if(dx < 0 && dy < 0) {
-			direction = "up_left";
-			moving = true;
-		}
-		else {
-			moving = false;
-		}
+		else moving = false;
 		
 		//moving left, check for walkable
 		if(dx < 0) {
 			//top of collision box
 			int tileX = (x1 + dx) / Config.TILE_SIZE;
 			int tileY = y1 / Config.TILE_SIZE;
-			if(!tm.isWalkable(tileX, tileY)) dx = 0;
-			
-			//bottom of collision box
-			tileY = y2 / Config.TILE_SIZE;
-			if(!tm.isWalkable(tileX, tileY)) dx = 0;
+			if(tileX < tm.getWidth() && tileY < tm.getHeight()) {
+				if(!tm.isWalkable(tileX, tileY)) dx = 0;
+				
+				//bottom of collision box
+				tileY = y2 / Config.TILE_SIZE;
+				if(tileY < tm.getHeight())
+					if(!tm.isWalkable(tileX, tileY)) dx = 0;
+			}
 		}
 		//moving right, check for walkable
 		else if(dx > 0) {
 			//top of collision box
 			int tileX = (x2 + dx) / Config.TILE_SIZE;
 			int tileY = y1 / Config.TILE_SIZE;
-			if(!tm.isWalkable(tileX, tileY)) dx = 0;
+			if(tileX < tm.getWidth() && tileY < tm.getHeight()) {
+				if(!tm.isWalkable(tileX, tileY)) dx = 0;
 			
-			//bottom of collision box
-			tileY = y2 / Config.TILE_SIZE;
-			if(!tm.isWalkable(tileX, tileY)) dx = 0;
+				//bottom of collision box
+				tileY = y2 / Config.TILE_SIZE;
+				if(tileY < tm.getHeight())
+					if(!tm.isWalkable(tileX, tileY)) dx = 0;
+			}
 		}
 		
 		//moving up, check for walkable
@@ -144,22 +122,28 @@ public abstract class Actor implements Renderable {
 			//left of collision box
 			int tileX = x1 / Config.TILE_SIZE;
 			int tileY = (y1 + dy) / Config.TILE_SIZE;
-			if(!tm.isWalkable(tileX, tileY)) dy = 0;
-			
-			//right of collision box
-			tileX = x2 / Config.TILE_SIZE;
-			if(!tm.isWalkable(tileX, tileY)) dy = 0;
+			if(tileX < tm.getWidth() && tileY < tm.getHeight()) {
+				if(!tm.isWalkable(tileX, tileY)) dy = 0;
+				
+				//right of collision box
+				tileX = x2 / Config.TILE_SIZE;
+				if(tileX < tm.getWidth())
+					if(!tm.isWalkable(tileX, tileY)) dy = 0;
+			}
 		}
 		else if(dy > 0) {
 			//left of collision box
 			int tileX = x1 / Config.TILE_SIZE;
 			int tileY = (y2 + dy) / Config.TILE_SIZE;
-			if(!tm.isWalkable(tileX, tileY)) dy = 0;
+			if(tileX < tm.getWidth() && tileY < tm.getHeight()) {
+				if(!tm.isWalkable(tileX, tileY)) dy = 0;
 			
-			//right of collision box
-			tileX = x2 / Config.TILE_SIZE;
-			if(!tm.isWalkable(tileX, tileY)) dy = 0;
-		}
+				//right of collision box
+				tileX = x2 / Config.TILE_SIZE;
+				if(tileX < tm.getWidth())
+					if(!tm.isWalkable(tileX, tileY)) dy = 0;
+			}
+		}		
 		
 		//move coords
 		x += dx;
@@ -190,6 +174,10 @@ public abstract class Actor implements Renderable {
 	
 	public BufferedImage getImg() {
 		return img;
+	}
+	
+	public String getDirection() {
+		return direction;
 	}
 	
 	@Override

@@ -85,6 +85,9 @@ public class GamePanel extends JPanel implements Runnable{
 		}
 	}
 
-	private void update() { gsm.update(); }
+	private void update() { 
+		gsm.update();
+		js.update();
+	}
 	private void draw() { gsm.draw(buffer); }
 }

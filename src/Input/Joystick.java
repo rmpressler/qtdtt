@@ -1,9 +1,13 @@
 package Input;
 
+
 import net.java.games.input.*;
 
 public class Joystick {
 	private Controller c;
+	
+	private Stick xStick;
+	private Stick yStick;
 	
 	public Joystick() {
 		Controller[] found = ControllerEnvironment.getDefaultEnvironment().getControllers();
@@ -14,21 +18,16 @@ public class Joystick {
 		
 		System.out.println("Connected to " + c.getName() + "!");
 		
-		Component[] comps = c.getComponents();
-		for(Component comp : comps) {
-			System.out.println(comp.getName() + " (" + comp.getIdentifier() + "): " + comp.getPollData());
-		}
+		c.poll();
 		
-		float val = c.getComponent(Component.Identifier.Button._1).getPollData();
-		while(true) {
-			if(c.getComponent(Component.Identifier.Button._1).getPollData() != val) {
-				System.out.println("Changed! HOLY SHIT!");
-			}
-		}
+		xStick = new StickX(c.getComponent(Component.Identifier.Axis.X));
+		yStick = new StickY(c.getComponent(Component.Identifier.Axis.Y));
 	}
 	
-	public void printX() {
-		Component comp = c.getComponent(Component.Identifier.Axis.X);
-		System.out.println(comp.getPollData());
+	public void update() {
+		c.poll();
+		
+		xStick.update();
+		yStick.update();
 	}
 }

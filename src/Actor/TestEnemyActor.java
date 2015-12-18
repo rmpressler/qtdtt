@@ -5,14 +5,21 @@ import Camera.ImageData;
 import Game.Config;
 import TileMap.TileMap;
 
-public class HeroActor extends Actor{
+public class TestEnemyActor extends Actor{
 	
-	public HeroActor(TileMap tm) {
+	public TestEnemyActor(TileMap tm) {
 		super(tm);
 		
 		height = (int)(0.9 * Config.TILE_SIZE);
 		width = (int)(0.85 * Config.TILE_SIZE);
-		animate = new ActorAnimator("hero", width, height);
+		
+		int boundsX = tm.getWidth() * Config.TILE_SIZE;
+		int boundsY = tm.getHeight() * Config.TILE_SIZE;
+		
+		this.x = (int)((Math.random() * boundsX) - width);
+		this.y = (int)((Math.random() * boundsY) - height);
+	
+		animate = new ActorAnimator("test_enemy", width, height);
 		img = animate.getImage();
 	}
 	
@@ -31,6 +38,8 @@ public class HeroActor extends Actor{
 				movingRight = true;
 				break;
 		}
+		
+		update();
 	}
 	
 	public void stopMove(String direction) {

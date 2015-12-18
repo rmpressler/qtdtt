@@ -77,6 +77,9 @@ public class Camera {
 			//Create local copies of location/dimensions to reduce calls to getters
 			int imgX1 = iData.getX() - x;						//left edge (on screen)
 			int imgY1 = iData.getY() - y;						//top edge (on screen)
+			if(iData.getImg() == null) {
+				System.out.println("iData.getImg() is null");
+			}
 			int imgX2 = imgX1 + iData.getImg().getWidth() - x;	//right edge (on screen)
 			int imgY2 = imgY1 + iData.getImg().getHeight() - y;	//bottom edge (on screen)
 			

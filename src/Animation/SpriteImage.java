@@ -59,6 +59,7 @@ public class SpriteImage {
 		
 		//Load all tilesheets in tileSheetPath
 		String[] pngFileNames = getFileNames(spritePath, ".png");
+		
 		try {
 			for(int i = 0;i < pngFileNames.length;i++) {
 				String fileName = pngFileNames[i];
@@ -80,15 +81,16 @@ public class SpriteImage {
 						tileWidth,
 						tileHeight,
 						numTiles);
-				
+
 				//Add tiles to images
 				for(int j = 0;j < numTiles;j++) {
 					BufferedImage bi = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
 					Graphics g = bi.getGraphics();
 					g.drawImage(img.getTile().getScaledInstance(width, height, BufferedImage.SCALE_DEFAULT), 0, 0, null);
-					images.put(bufferedReader.readLine(), bi);
+					String imgName = bufferedReader.readLine();
+					images.put(imgName, bi);
 				}
-				
+
 				bufferedReader.close();
 			}
 		}
