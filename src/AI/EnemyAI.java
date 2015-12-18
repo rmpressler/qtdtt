@@ -24,6 +24,12 @@ public class EnemyAI {
 		lastMovedTime = System.nanoTime() / 1000000;
 	}
 	
+	private void stop() {
+		actor.stopMove("all");
+		lastMovedTime = System.nanoTime() / 1000000;
+		moving = false;
+	}
+	
 	public void update() {
 		if(!moving && (System.nanoTime() / 1000000) - lastMovedTime >= 5000) {
 			moving = true;
@@ -76,20 +82,19 @@ public class EnemyAI {
 			}
 		}
 		else if(moving) {
+			if(actor.isStopped()) stop();
+			
+			if(actor.getX() <= 6) stop();
+			if(actor.getY() <= 6) stop();
+			if(actor.getX() >= (world.getTileMap().getWidth() * Config.TILE_SIZE) - actor.getWidth() - 6) stop();
+			if(actor.getY() >= (world.getTileMap().getHeight() * Config.TILE_SIZE) - actor.getHeight() - 6) stop();
+			
 			int dx = -(actor.getX() - destinationX);	//-dx = left; +dx = right
 			int dy = -(actor.getY() - destinationY);	//-dy = left; +dy = right
 			
 			//arrived
 			if(Math.abs(dx) < 6 && Math.abs(dy) < 6) {
-				if(actor.getDirection().indexOf('_') > -1) {
-					String[] d = actor.getDirection().split("_");
-					actor.stopMove(d[0]);
-					actor.stopMove(d[1]);
-					lastMovedTime = System.nanoTime() / 1000000;
-				}
-				else
-					actor.stopMove(actor.getDirection());
-				moving = false;
+				stop();
 				return;
 			}
 			

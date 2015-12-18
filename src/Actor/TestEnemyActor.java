@@ -22,42 +22,6 @@ public class TestEnemyActor extends Actor{
 		animate = new ActorAnimator("test_enemy", width, height);
 		img = animate.getImage();
 	}
-	
-	public void startMove(String direction) {
-		switch(direction) {
-			case "up":
-				movingUp = true;
-				break;
-			case "down":
-				movingDown = true;
-				break;
-			case "left":
-				movingLeft = true;
-				break;
-			case "right":
-				movingRight = true;
-				break;
-		}
-		
-		update();
-	}
-	
-	public void stopMove(String direction) {
-		switch(direction) {
-			case "up":
-				movingUp = false;
-				break;
-			case "down":
-				movingDown = false;
-				break;
-			case "left":
-				movingLeft = false;
-				break;
-			case "right":
-				movingRight = false;
-				break;
-		}
-	}
 
 	@Override
 	public ImageData getImageData() {

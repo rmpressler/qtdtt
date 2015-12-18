@@ -18,40 +18,6 @@ public class HeroActor extends Actor{
 		img = animate.getImage();
 	}
 	
-	public void startMove(String direction) {
-		switch(direction) {
-			case "up":
-				movingUp = true;
-				break;
-			case "down":
-				movingDown = true;
-				break;
-			case "left":
-				movingLeft = true;
-				break;
-			case "right":
-				movingRight = true;
-				break;
-		}
-	}
-	
-	public void stopMove(String direction) {
-		switch(direction) {
-			case "up":
-				movingUp = false;
-				break;
-			case "down":
-				movingDown = false;
-				break;
-			case "left":
-				movingLeft = false;
-				break;
-			case "right":
-				movingRight = false;
-				break;
-		}
-	}
-	
 	public void fire(World w) {
 		int xOffset = 0;
 		int yOffset = 0;

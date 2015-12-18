@@ -26,6 +26,8 @@ public abstract class Actor implements Renderable {
 	protected boolean movingLeft;
 	protected boolean movingRight;
 	
+	private boolean isStopped;
+	
 	private String direction;
 	
 	protected BufferedImage img;
@@ -45,11 +47,51 @@ public abstract class Actor implements Renderable {
 		movingDown = false;
 		movingLeft = false;
 		movingRight = false;
+		isStopped = false;
 	}
 	
 	public void setStart(int x, int y) {
 		this.x = x;
 		this.y = y;
+	}
+	
+	public void startMove(String direction) {
+		switch(direction) {
+			case "up":
+				movingUp = true;
+				break;
+			case "down":
+				movingDown = true;
+				break;
+			case "left":
+				movingLeft = true;
+				break;
+			case "right":
+				movingRight = true;
+				break;
+		}
+	}
+	
+	public void stopMove(String direction) {
+		switch(direction) {
+			case "up":
+				movingUp = false;
+				break;
+			case "down":
+				movingDown = false;
+				break;
+			case "left":
+				movingLeft = false;
+				break;
+			case "right":
+				movingRight = false;
+				break;
+			case "all":
+				movingUp = false;
+				movingDown = false;
+				movingLeft = false;
+				movingRight = false;
+		}
 	}
 	
 	public boolean isMoving() {
@@ -58,6 +100,15 @@ public abstract class Actor implements Renderable {
 	
 	protected boolean isAttacking() {
 		return attacking;
+	}
+	
+	
+	public boolean isStopped() {
+		if(isStopped) {
+			isStopped = false;
+			return true;
+		}
+		return false;
 	}
 	
 	public void update() {
@@ -94,12 +145,18 @@ public abstract class Actor implements Renderable {
 			int tileX = (x1 + dx) / Config.TILE_SIZE;
 			int tileY = y1 / Config.TILE_SIZE;
 			if(tileX < tm.getWidth() && tileY < tm.getHeight()) {
-				if(!tm.isWalkable(tileX, tileY)) dx = 0;
+				if(!tm.isWalkable(tileX, tileY)) {
+					dx = 0;
+					isStopped = true;
+				}
 				
 				//bottom of collision box
 				tileY = y2 / Config.TILE_SIZE;
 				if(tileY < tm.getHeight())
-					if(!tm.isWalkable(tileX, tileY)) dx = 0;
+					if(!tm.isWalkable(tileX, tileY)){
+						dx = 0;
+						isStopped = true;
+					}
 			}
 		}
 		//moving right, check for walkable
@@ -108,12 +165,18 @@ public abstract class Actor implements Renderable {
 			int tileX = (x2 + dx) / Config.TILE_SIZE;
 			int tileY = y1 / Config.TILE_SIZE;
 			if(tileX < tm.getWidth() && tileY < tm.getHeight()) {
-				if(!tm.isWalkable(tileX, tileY)) dx = 0;
+				if(!tm.isWalkable(tileX, tileY)) {
+					dx = 0;
+					isStopped = true;
+				}
 			
 				//bottom of collision box
 				tileY = y2 / Config.TILE_SIZE;
 				if(tileY < tm.getHeight())
-					if(!tm.isWalkable(tileX, tileY)) dx = 0;
+					if(!tm.isWalkable(tileX, tileY)){
+						dx = 0;
+						isStopped = true;
+					}
 			}
 		}
 		
@@ -123,12 +186,18 @@ public abstract class Actor implements Renderable {
 			int tileX = x1 / Config.TILE_SIZE;
 			int tileY = (y1 + dy) / Config.TILE_SIZE;
 			if(tileX < tm.getWidth() && tileY < tm.getHeight()) {
-				if(!tm.isWalkable(tileX, tileY)) dy = 0;
+				if(!tm.isWalkable(tileX, tileY)){
+					dy = 0;
+					isStopped = true;
+				}
 				
 				//right of collision box
 				tileX = x2 / Config.TILE_SIZE;
 				if(tileX < tm.getWidth())
-					if(!tm.isWalkable(tileX, tileY)) dy = 0;
+					if(!tm.isWalkable(tileX, tileY)){
+						dy = 0;
+						isStopped = true;
+					}
 			}
 		}
 		else if(dy > 0) {
@@ -136,12 +205,18 @@ public abstract class Actor implements Renderable {
 			int tileX = x1 / Config.TILE_SIZE;
 			int tileY = (y2 + dy) / Config.TILE_SIZE;
 			if(tileX < tm.getWidth() && tileY < tm.getHeight()) {
-				if(!tm.isWalkable(tileX, tileY)) dy = 0;
+				if(!tm.isWalkable(tileX, tileY)){
+					dy = 0;
+					isStopped = true;
+				}
 			
 				//right of collision box
 				tileX = x2 / Config.TILE_SIZE;
 				if(tileX < tm.getWidth())
-					if(!tm.isWalkable(tileX, tileY)) dy = 0;
+					if(!tm.isWalkable(tileX, tileY)){
+						dy = 0;
+						isStopped = true;
+					}
 			}
 		}		
 		
@@ -162,6 +237,14 @@ public abstract class Actor implements Renderable {
 		//move animation, if needed
 		if(moving) animate.move(direction);
 		img = animate.getImage();
+	}
+	
+	public int getWidth() {
+		return width;
+	}
+	
+	public int getHeight() {
+		return height;
 	}
 	
 	public int getX() {
