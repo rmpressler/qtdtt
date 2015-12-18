@@ -28,4 +28,8 @@ public class PlayInputHandler {
 		if(toggle) world.getHero().startMove("right");
 		else world.getHero().stopMove("right");
 	}
+	
+	public static void activateAction0() {
+		world.getHero().fire(world);
+	}
 }

@@ -32,4 +32,16 @@ public class InputHandler {
 			PlayInputHandler.setToggle4(toggle);
 		}
 	}
+	
+	public static void activateAction0() {
+		if(gsm.getState() == GameStateManager.PLAYSTATE) {
+			PlayInputHandler.activateAction0();
+		}
+	}
+	
+	public static void activateAction1() {
+		if(gsm.getState() == GameStateManager.PLAYSTATE) {
+			//
+		}
+	}
 }

@@ -41,7 +41,9 @@ public class World {
 		for(int i = 0;i < aiControllers.size();i++) {
 			aiControllers.get(i).update();
 		}
-		hero.update();
+		for(Renderable r: renderables) {
+			r.update();
+		}
 	}
 	
 	public TileMap getTileMap() {
@@ -89,6 +91,20 @@ public class World {
 		else return null;
 	}
 	
+	public static boolean isCompoundDirection(String direction) {
+		if(direction.indexOf('_') > -1) {
+			return true;
+		}
+		return false;
+	}
+	
+	public static String[] Direction2to1(String direction) {
+		if(isCompoundDirection(direction)) {
+			return direction.split("_");
+		}
+		return null;
+	}
+	
 	public static String getDirection(int dx, int dy, int tolerance) {
 		if(dx > 0 && Math.abs(dy) < tolerance) {
 			return "right";
@@ -115,5 +131,9 @@ public class World {
 			return "up_left";
 		}
 		else return null;
+	}
+
+	public void addRenderableObject(Renderable r) {
+		renderables.add(r);
 	}
 }

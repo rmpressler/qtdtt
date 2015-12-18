@@ -24,13 +24,7 @@ public class EnemyAI {
 		lastMovedTime = System.nanoTime() / 1000000;
 	}
 	
-	public String getDebugDump() {
-		return "Destination: " + destinationX + ", " + destinationY + "\nCurrent: " + actor.getX() + ", " + actor.getY();
-	}
-	
 	public void update() {
-		actor.update();
-		
 		if(!moving && (System.nanoTime() / 1000000) - lastMovedTime >= 5000) {
 			moving = true;
 			boolean xPositive;
@@ -87,7 +81,6 @@ public class EnemyAI {
 			
 			//arrived
 			if(Math.abs(dx) < 6 && Math.abs(dy) < 6) {
-				System.out.println("Arrived");
 				if(actor.getDirection().indexOf('_') > -1) {
 					String[] d = actor.getDirection().split("_");
 					actor.stopMove(d[0]);

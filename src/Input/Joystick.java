@@ -8,6 +8,7 @@ public class Joystick {
 	
 	private Stick xStick;
 	private Stick yStick;
+	private Trigger trigger;
 	
 	public Joystick() {
 		Controller[] found = ControllerEnvironment.getDefaultEnvironment().getControllers();
@@ -22,6 +23,7 @@ public class Joystick {
 		
 		xStick = new StickX(c.getComponent(Component.Identifier.Axis.X));
 		yStick = new StickY(c.getComponent(Component.Identifier.Axis.Y));
+		trigger = new Trigger(c.getComponent(Component.Identifier.Axis.Z));
 	}
 	
 	public void update() {
@@ -29,5 +31,6 @@ public class Joystick {
 		
 		xStick.update();
 		yStick.update();
+		trigger.update();
 	}
 }
