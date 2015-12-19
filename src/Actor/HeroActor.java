@@ -3,6 +3,7 @@ package Actor;
 import Animation.ActorAnimator;
 import Camera.ImageData;
 import Game.Config;
+import Physics.HitBox;
 import Spells.Fireball;
 import TileMap.TileMap;
 import World.World;
@@ -43,11 +44,23 @@ public class HeroActor extends Actor{
 			if(getDirection() == "right")
 				xOffset += 25;
 		}
-		w.addRenderableObject(new Fireball(this.getDirection(), x + (width / 4) - 5 + xOffset, y + (height / 4) - 5 + yOffset));
+		Fireball fb = new Fireball(this.getDirection(), x + (width / 4) - 5 + xOffset, y + (height / 4) - 5 + yOffset);
+		w.addRenderableObject(fb);
+		w.addCollidableObject(fb);
 	}
 
 	@Override
 	public ImageData getImageData() {
 		return new ImageData(img, x, y);
+	}
+
+	@Override
+	public HitBox getHitBox() {
+		return new HitBox(x, y, x + width, y + height);
+	}
+
+	@Override
+	public String getType() {
+		return "hero";
 	}
 }

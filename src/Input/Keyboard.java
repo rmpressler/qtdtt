@@ -19,6 +19,9 @@ public class Keyboard implements KeyListener {
 		case KeyEvent.VK_D: 
 			InputHandler.setToggle4(true); 
 			break;
+		case KeyEvent.VK_SPACE:
+			InputHandler.activateAction0();
+			break;
 		}
 	}
 

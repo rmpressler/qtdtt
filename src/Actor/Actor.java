@@ -6,10 +6,12 @@ import Animation.ActorAnimator;
 import Camera.ImageData;
 import Camera.Renderable;
 import Game.Config;
+import Physics.Collidable;
 import TileMap.TileMap;
 import World.World;
 
-public abstract class Actor implements Renderable {
+public abstract class Actor implements Renderable,
+									Collidable{
 	protected int x;		//location in pixels relative to top left of level
 	protected int y;		//location in pixels relative to top left of level
 	protected int width;	//width of sprite

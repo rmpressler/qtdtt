@@ -6,6 +6,8 @@ import net.java.games.input.*;
 public class Joystick {
 	private Controller c;
 	
+	private boolean connected;
+	
 	private Stick xStick;
 	private Stick yStick;
 	private Trigger trigger;
@@ -17,6 +19,13 @@ public class Joystick {
 			if(found[i].getType() == Controller.Type.GAMEPAD) c = found[i];
 		}
 		
+		if(c == null) {
+			connected = false;
+			return;
+		}
+		
+		connected = true;
+		
 		System.out.println("Connected to " + c.getName() + "!");
 		
 		c.poll();
@@ -24,6 +33,10 @@ public class Joystick {
 		xStick = new StickX(c.getComponent(Component.Identifier.Axis.X));
 		yStick = new StickY(c.getComponent(Component.Identifier.Axis.Y));
 		trigger = new Trigger(c.getComponent(Component.Identifier.Axis.Z));
+	}
+	
+	public boolean isConnected() {
+		return connected;
 	}
 	
 	public void update() {

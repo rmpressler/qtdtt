@@ -3,6 +3,8 @@ package Actor;
 import Animation.ActorAnimator;
 import Camera.ImageData;
 import Game.Config;
+import Physics.Collidable;
+import Physics.HitBox;
 import TileMap.TileMap;
 
 public class TestEnemyActor extends Actor{
@@ -26,5 +28,15 @@ public class TestEnemyActor extends Actor{
 	@Override
 	public ImageData getImageData() {
 		return new ImageData(img, x, y);
+	}
+
+	@Override
+	public HitBox getHitBox() {
+		return new HitBox(x, y, x + width, y + height);
+	}
+
+	@Override
+	public String getType() {
+		return "enemy";
 	}
 }

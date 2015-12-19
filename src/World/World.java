@@ -6,6 +6,9 @@ import AI.EnemyAI;
 import Actor.HeroActor;
 import Actor.TestEnemyActor;
 import Camera.Renderable;
+import Physics.Collidable;
+import Physics.CollisionDetect;
+import Physics.CollisionHandler;
 import TileMap.TileMap;
 
 public class World {
@@ -13,12 +16,15 @@ public class World {
 	private HeroActor hero;
 	
 	private ArrayList<Renderable> renderables;
+	private CollisionDetect collider;
 	private ArrayList<EnemyAI> aiControllers;
 	
 	public World(String location) {
 		//Initialize fields
 		renderables = new ArrayList<Renderable>();
 		aiControllers = new ArrayList<EnemyAI>();
+		collider = new CollisionDetect();
+		CollisionHandler.setWorld(this);
 		
 		//Initialize tilemap
 		tm = new TileMap(location);
@@ -27,6 +33,7 @@ public class World {
 		hero = new HeroActor(tm);
 		hero.setStart(200, 400);
 		renderables.add(hero);
+		collider.add(hero);
 		
 		//Create 10 ai-controlled enemies
 		for(int i = 0;i < 10; i++) {
@@ -34,6 +41,7 @@ public class World {
 			EnemyAI eai = new EnemyAI(tea, this);
 			aiControllers.add(eai);
 			renderables.add(tea);
+			collider.add(tea);
 		}
 	}
 	
@@ -44,6 +52,7 @@ public class World {
 		for(Renderable r: renderables) {
 			r.update();
 		}
+		collider.update();
 	}
 	
 	public TileMap getTileMap() {
@@ -135,5 +144,17 @@ public class World {
 
 	public void addRenderableObject(Renderable r) {
 		renderables.add(r);
+	}
+	
+	public void addCollidableObject(Collidable c) {
+		collider.add(c);
+	}
+
+	public void removeRenderableObject(Renderable r) {
+		renderables.remove(r);
+	}
+
+	public void removeCollidableObject(Collidable c) {
+		collider.remove(c);
 	}
 }

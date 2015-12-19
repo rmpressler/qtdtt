@@ -5,11 +5,17 @@ import java.awt.image.BufferedImage;
 import Animation.SpellAnimator;
 import Camera.ImageData;
 import Camera.Renderable;
+import Game.Config;
+import Physics.Collidable;
+import Physics.HitBox;
 import World.World;
 
-public class Fireball implements Renderable {
+public class Fireball implements Renderable,
+								Collidable{
 	private int x;
 	private int y;
+	private int width;
+	private int height;
 	private int speed;
 	private String direction;
 	private BufferedImage img;
@@ -19,9 +25,19 @@ public class Fireball implements Renderable {
 		this.direction = direction;
 		this.x = x;
 		this.y = y;
+		this.width = (int)(Config.TILE_SIZE * 0.666);
+		this.height = (int)(Config.TILE_SIZE * 0.666);
 		this.speed = 5;
-		this.sa = new SpellAnimator("fireball", direction, 30, 30);
+		this.sa = new SpellAnimator("fireball", direction, width, height);
 		this.img = sa.getImage();
+	}
+	
+	public int getX() {
+		return x;
+	}
+	
+	public int getY() {
+		return x;
 	}
 	
 	public void update() {
@@ -64,6 +80,16 @@ public class Fireball implements Renderable {
 	@Override
 	public ImageData getImageData() {
 		return new ImageData(img, x, y);
+	}
+
+	@Override
+	public HitBox getHitBox() {
+		return new HitBox(x, y, x + width, y + height);
+	}
+
+	@Override
+	public String getType() {
+		return "fireball";
 	}
 	
 }
