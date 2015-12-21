@@ -3,7 +3,6 @@ package Actor;
 import Animation.ActorAnimator;
 import Camera.ImageData;
 import Game.Config;
-import Physics.Collidable;
 import Physics.HitBox;
 import TileMap.TileMap;
 
@@ -23,6 +22,7 @@ public class TestEnemyActor extends Actor{
 	
 		animate = new ActorAnimator("test_enemy", width, height);
 		img = animate.getImage();
+		hp = 20;
 	}
 
 	@Override
@@ -38,5 +38,11 @@ public class TestEnemyActor extends Actor{
 	@Override
 	public String getType() {
 		return "enemy";
+	}
+
+	@Override
+	public int getDmg() {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 }

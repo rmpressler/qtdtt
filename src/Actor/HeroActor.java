@@ -17,6 +17,7 @@ public class HeroActor extends Actor{
 		width = (int)(0.85 * Config.TILE_SIZE);
 		animate = new ActorAnimator("hero", width, height);
 		img = animate.getImage();
+		hp = 100;
 	}
 	
 	public void fire(World w) {
@@ -62,5 +63,10 @@ public class HeroActor extends Actor{
 	@Override
 	public String getType() {
 		return "hero";
+	}
+
+	@Override
+	public int getDmg() {
+		return dmg;
 	}
 }

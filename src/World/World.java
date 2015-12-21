@@ -6,6 +6,7 @@ import AI.EnemyAI;
 import Actor.HeroActor;
 import Actor.TestEnemyActor;
 import Camera.Renderable;
+import Game.Config;
 import Physics.Collidable;
 import Physics.CollisionDetect;
 import Physics.CollisionHandler;
@@ -49,8 +50,16 @@ public class World {
 		for(int i = 0;i < aiControllers.size();i++) {
 			aiControllers.get(i).update();
 		}
-		for(Renderable r: renderables) {
-			r.update();
+		for(int i = 0; i < renderables.size();i++) {
+			Renderable r = renderables.get(i);
+			if(r.getX() < 0 || r.getY() < 0 ||
+					r.getX() > tm.getWidth() * Config.TILE_SIZE ||
+					r.getY() > tm.getHeight() * Config.TILE_SIZE ||
+					!r.isAlive()) {
+				renderables.remove(r);
+				System.out.println("Removing object");
+			}
+			else r.update();
 		}
 		collider.update();
 	}

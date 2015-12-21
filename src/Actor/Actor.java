@@ -19,9 +19,12 @@ public abstract class Actor implements Renderable,
 	protected int dx;		//movement on the x axis this update
 	protected int dy;		//movement on the x axis this update
 	protected int speed;	//speed at which sprite moves ( pixels / frame )
+	protected int hp;
+	protected int dmg;
 	
 	private boolean moving;		//true when walking. Controls walking animation
 	private boolean attacking;	//true when attacking. Controls attacking animation
+	private boolean isAlive;
 	
 	protected boolean movingUp;
 	protected boolean movingDown;
@@ -50,6 +53,7 @@ public abstract class Actor implements Renderable,
 		movingLeft = false;
 		movingRight = false;
 		isStopped = false;
+		isAlive = true;
 	}
 	
 	public void setStart(int x, int y) {
@@ -114,6 +118,11 @@ public abstract class Actor implements Renderable,
 	}
 	
 	public void update() {
+		
+		if(hp <= 0) {
+			setAlive(false);
+			return;
+		}
 		
 		//establish collision box coordinates
 		int x1 = x;
@@ -265,8 +274,20 @@ public abstract class Actor implements Renderable,
 		return direction;
 	}
 	
+	public boolean isAlive() {
+		return isAlive;
+	}
+	
+	protected void setAlive(boolean alive) {
+		isAlive = alive;
+	}
+	
 	@Override
 	public ImageData getImageData() {
 		return new ImageData(img, x, y);
+	}
+	
+	public void hit(int dmg) {
+		hp -= dmg;
 	}
 }

@@ -17,9 +17,11 @@ public class Fireball implements Renderable,
 	private int width;
 	private int height;
 	private int speed;
+	private int dmg;
 	private String direction;
 	private BufferedImage img;
 	private SpellAnimator sa;
+	private boolean isAlive;
 	
 	public Fireball(String direction, int x, int y) {
 		this.direction = direction;
@@ -30,6 +32,8 @@ public class Fireball implements Renderable,
 		this.speed = 5;
 		this.sa = new SpellAnimator("fireball", direction, width, height);
 		this.img = sa.getImage();
+		this.isAlive = true;
+		this.dmg = 5;
 	}
 	
 	public int getX() {
@@ -37,7 +41,7 @@ public class Fireball implements Renderable,
 	}
 	
 	public int getY() {
-		return x;
+		return y;
 	}
 	
 	public void update() {
@@ -86,10 +90,24 @@ public class Fireball implements Renderable,
 	public HitBox getHitBox() {
 		return new HitBox(x, y, x + width, y + height);
 	}
+	
+	public int getDmg() {
+		return dmg;
+	}
 
 	@Override
 	public String getType() {
 		return "fireball";
 	}
-	
+
+	@Override
+	public boolean isAlive() {
+		return isAlive;
+	}
+
+	@Override
+	public void hit(int dmg) {
+		// TODO Auto-generated method stub
+		
+	}
 }

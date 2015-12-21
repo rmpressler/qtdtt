@@ -21,7 +21,7 @@ public class GameStateManager {
 		currentState = 0;
 	}
 	
-	public int getState() {
+	public int getCurrentState() {
 		return currentState;
 	}
 	
