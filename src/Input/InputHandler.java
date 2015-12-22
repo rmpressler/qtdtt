@@ -9,39 +9,7 @@ public class InputHandler {
 		gsm = newGsm;
 	}
 	
-	public static void setToggle1(boolean toggle) {
-		if(gsm.getCurrentState() == GameStateManager.PLAYSTATE) {
-			PlayInputHandler.setToggle1(toggle);
-		}
-	}
-	
-	public static void setToggle2(boolean toggle) {
-		if(gsm.getCurrentState() == GameStateManager.PLAYSTATE) {
-			PlayInputHandler.setToggle2(toggle);
-		}
-	}
-	
-	public static void setToggle3(boolean toggle) {
-		if(gsm.getCurrentState() == GameStateManager.PLAYSTATE) {
-			PlayInputHandler.setToggle3(toggle);
-		}
-	}
-	
-	public static void setToggle4(boolean toggle) {
-		if(gsm.getCurrentState() == GameStateManager.PLAYSTATE) {
-			PlayInputHandler.setToggle4(toggle);
-		}
-	}
-	
-	public static void activateAction0() {
-		if(gsm.getCurrentState() == GameStateManager.PLAYSTATE) {
-			PlayInputHandler.activateAction0();
-		}
-	}
-	
-	public static void activateAction1() {
-		if(gsm.getCurrentState() == GameStateManager.PLAYSTATE) {
-			//
-		}
+	public static void passInput(Command c) {
+		gsm.passInput(c);
 	}
 }

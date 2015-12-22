@@ -7,6 +7,7 @@ import Actor.HeroActor;
 import Actor.TestEnemyActor;
 import Camera.Renderable;
 import Game.Config;
+import Game.GameObject;
 import Physics.Collidable;
 import Physics.CollisionDetect;
 import Physics.CollisionHandler;
@@ -21,28 +22,26 @@ public class World {
 	private ArrayList<EnemyAI> aiControllers;
 	
 	public World(String location) {
-		//Initialize fields
+		// Initialize fields
 		renderables = new ArrayList<Renderable>();
 		aiControllers = new ArrayList<EnemyAI>();
 		collider = new CollisionDetect();
 		CollisionHandler.setWorld(this);
 		
-		//Initialize tilemap
+		// Initialize tilemap
 		tm = new TileMap(location);
 		
-		//Initialize actors
+		// Initialize actors
 		hero = new HeroActor(tm);
 		hero.setStart(200, 400);
-		renderables.add(hero);
-		collider.add(hero);
+		add(hero);
 		
-		//Create 10 ai-controlled enemies
+		// Create 10 ai-controlled enemies
 		for(int i = 0;i < 10; i++) {
 			TestEnemyActor tea = new TestEnemyActor(tm);
 			EnemyAI eai = new EnemyAI(tea, this);
 			aiControllers.add(eai);
-			renderables.add(tea);
-			collider.add(tea);
+			add(tea);
 		}
 	}
 	
@@ -56,7 +55,7 @@ public class World {
 					r.getX() > tm.getWidth() * Config.TILE_SIZE ||
 					r.getY() > tm.getHeight() * Config.TILE_SIZE ||
 					!r.isAlive()) {
-				renderables.remove(r);
+				remove((GameObject)r);
 				System.out.println("Removing object");
 			}
 			else r.update();
@@ -70,6 +69,26 @@ public class World {
 	
 	public HeroActor getHero() {
 		return hero;
+	}
+	
+	public void add(GameObject o) {
+		if(o.isRenderable()) {
+			renderables.add((Renderable)o);
+		}
+		
+		if(o.isCollidable()) {
+			collider.add((Collidable)o);
+		}
+	}
+	
+	public void remove(GameObject o) {
+		if(o.isRenderable()) {
+			renderables.remove(o);
+		}
+		
+		if(o.isCollidable()) {
+			collider.remove((Collidable)o);
+		}
 	}
 	
 	public Renderable[] getRenderables() {

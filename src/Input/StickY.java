@@ -20,42 +20,43 @@ public class StickY extends Stick{
 	public void update() {
 		//Stick is in center
 		if(getLocation() == Stick.StickLocation.CENTER) {
-			//Left was released
+			//Up was released
 			if(location == StickLocation.UP) {
 				location = StickLocation.CENTER;
-				InputHandler.setToggle1(false);
+				InputHandler.passInput(new Command(Action.LUP, false));
 			}
-			//Right was released
+			//Down was released
 			else if(location == StickLocation.DOWN) {
 				location = StickLocation.CENTER;
-				InputHandler.setToggle2(false);
+				InputHandler.passInput(new Command(Action.LDOWN, false));
 			}
 		}
-		//Stick is left
+		//Stick is up
 		else if(getLocation() == StickLocation.UP) {
-			//Just began going left
+			//Just began going up
 			if(location == StickLocation.CENTER) {
 				location = StickLocation.UP;
-				InputHandler.setToggle1(true);
+				InputHandler.passInput(new Command(Action.LUP, true));
 			}
-			//Switched from right
+			//Switched from down
 			else if(location == StickLocation.DOWN) {
 				location = StickLocation.UP;
-				InputHandler.setToggle1(true);
-				InputHandler.setToggle2(false);
+				InputHandler.passInput(new Command(Action.LDOWN, false));
+				InputHandler.passInput(new Command(Action.LUP, true));
 			}
 		}
+		//Stick is down
 		else if(getLocation() == StickLocation.DOWN) {
-			//Just began going right
+			//Just began going down
 			if(location == StickLocation.CENTER) {
 				location = StickLocation.DOWN;
-				InputHandler.setToggle2(true);
+				InputHandler.passInput(new Command(Action.LDOWN, true));
 			}
-			//Switched from left
+			//Switched from up
 			else if(location == StickLocation.UP) {
 				location = StickLocation.DOWN;
-				InputHandler.setToggle2(true);
-				InputHandler.setToggle1(false);
+				InputHandler.passInput(new Command(Action.LDOWN, true));
+				InputHandler.passInput(new Command(Action.LUP, false));
 			}
 		}
 	}

@@ -23,12 +23,12 @@ public class StickX extends Stick{
 			//Left was released
 			if(location == StickLocation.LEFT) {
 				location = StickLocation.CENTER;
-				InputHandler.setToggle3(false);
+				InputHandler.passInput(new Command(Action.LLEFT, false));
 			}
 			//Right was released
 			else if(location == StickLocation.RIGHT) {
 				location = StickLocation.CENTER;
-				InputHandler.setToggle4(false);
+				InputHandler.passInput(new Command(Action.LRIGHT, false));
 			}
 		}
 		//Stick is left
@@ -36,26 +36,26 @@ public class StickX extends Stick{
 			//Just began going left
 			if(location == StickLocation.CENTER) {
 				location = StickLocation.LEFT;
-				InputHandler.setToggle3(true);
+				InputHandler.passInput(new Command(Action.LLEFT, true));
 			}
 			//Switched from right
 			else if(location == StickLocation.RIGHT) {
 				location = StickLocation.LEFT;
-				InputHandler.setToggle3(true);
-				InputHandler.setToggle4(false);
+				InputHandler.passInput(new Command(Action.LRIGHT, false));
+				InputHandler.passInput(new Command(Action.LLEFT, true));
 			}
 		}
 		else if(getLocation() == StickLocation.RIGHT) {
 			//Just began going right
 			if(location == StickLocation.CENTER) {
 				location = StickLocation.RIGHT;
-				InputHandler.setToggle4(true);
+				InputHandler.passInput(new Command(Action.LRIGHT, true));
 			}
 			//Switched from left
 			else if(location == StickLocation.LEFT) {
 				location = StickLocation.RIGHT;
-				InputHandler.setToggle4(true);
-				InputHandler.setToggle3(false);
+				InputHandler.passInput(new Command(Action.LLEFT, false));
+				InputHandler.passInput(new Command(Action.LRIGHT, true));
 			}
 		}
 	}

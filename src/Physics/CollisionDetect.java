@@ -23,6 +23,7 @@ public class CollisionDetect {
 				if(colliding(objects.get(i), objects.get(j)))
 					CollisionHandler.handleCollision(objects.get(i), objects.get(j));
 			}
+			if(!objects.get(i).isAlive()) objects.remove(i);
 		}
 	}
 	

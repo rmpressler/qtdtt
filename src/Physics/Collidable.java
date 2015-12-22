@@ -5,4 +5,5 @@ public interface Collidable {
 	public String getType();
 	public int getDmg();
 	public void hit(int dmg);
+	public boolean isAlive();
 }

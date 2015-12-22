@@ -1,7 +1,9 @@
 package GameState;
 
-import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
+
+import Input.Command;
 
 public class GameStateManager {
 	private ArrayList<GameState> states;
@@ -25,11 +27,15 @@ public class GameStateManager {
 		return currentState;
 	}
 	
+	public void passInput(Command c) {
+		states.get(currentState).passInput(c);
+	}
+	
 	public void update() {
 		states.get(currentState).update();
 	}
 	
-	public void draw(Graphics2D g) {
-		states.get(currentState).draw(g);
+	public BufferedImage getScreen() {
+		return states.get(currentState).getScreen();
 	}
 }

@@ -18,14 +18,13 @@ public class GamePanel extends JPanel implements Runnable{
 	private Keyboard kb;
 	private Joystick js;
 	private Thread thread;
-	private BufferedImage img;
-	private Graphics2D buffer;
 	
 	private long frameTime;			//Milliseconds per frame
 	
 	private boolean running;
 	
 	private void render() {
+		BufferedImage img = gsm.getScreen();
 		Graphics2D screen = (Graphics2D)this.getGraphics();
 		screen.drawImage(img, 0, 0,  null);
 		screen.dispose();
@@ -54,9 +53,6 @@ public class GamePanel extends JPanel implements Runnable{
 		js = new Joystick();
 		InputHandler.setStateManager(gsm);
 		
-		img = new BufferedImage(WINDOW_SIZE, WINDOW_SIZE, BufferedImage.TYPE_INT_RGB);
-		buffer = (Graphics2D)img.getGraphics();
-		
 		addKeyListener(kb);
 		
 		frameTime = 1000 / Config.FPS_CAP;
@@ -70,7 +66,6 @@ public class GamePanel extends JPanel implements Runnable{
 			start = System.nanoTime();
 			
 			update();
-			draw();
 			render();
 			
 			elapsed = (System.nanoTime() - start) / 1000000;
@@ -90,5 +85,4 @@ public class GamePanel extends JPanel implements Runnable{
 		if(js.isConnected())
 			js.update();
 	}
-	private void draw() { gsm.draw(buffer); }
 }

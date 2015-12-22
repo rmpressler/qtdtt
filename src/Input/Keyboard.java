@@ -8,19 +8,19 @@ public class Keyboard implements KeyListener {
 	public void keyPressed(KeyEvent e) {
 		switch(e.getKeyCode()) {
 		case KeyEvent.VK_W: 
-			InputHandler.setToggle1(true); 
+			InputHandler.passInput(new Command(Action.LUP, true)); 
 			break;
 		case KeyEvent.VK_S: 
-			InputHandler.setToggle2(true); 
+			InputHandler.passInput(new Command(Action.LDOWN, true));
 			break;
 		case KeyEvent.VK_A: 
-			InputHandler.setToggle3(true); 
+			InputHandler.passInput(new Command(Action.LLEFT, true));
 			break;
 		case KeyEvent.VK_D: 
-			InputHandler.setToggle4(true); 
+			InputHandler.passInput(new Command(Action.LRIGHT, true));
 			break;
 		case KeyEvent.VK_SPACE:
-			InputHandler.activateAction0();
+			InputHandler.passInput(new Command(Action.FIRE, true));
 			break;
 		}
 	}
@@ -29,16 +29,16 @@ public class Keyboard implements KeyListener {
 	public void keyReleased(KeyEvent e) {
 		switch(e.getKeyCode()) {
 		case KeyEvent.VK_W: 
-			InputHandler.setToggle1(false); 
+			InputHandler.passInput(new Command(Action.LUP, false)); 
 			break;
 		case KeyEvent.VK_S: 
-			InputHandler.setToggle2(false); 
+			InputHandler.passInput(new Command(Action.LDOWN, false));
 			break;
 		case KeyEvent.VK_A: 
-			InputHandler.setToggle3(false); 
+			InputHandler.passInput(new Command(Action.LLEFT, false));
 			break;
 		case KeyEvent.VK_D: 
-			InputHandler.setToggle4(false); 
+			InputHandler.passInput(new Command(Action.LRIGHT, false));
 			break;
 		}
 	}

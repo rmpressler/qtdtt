@@ -1,8 +1,9 @@
 package GameState;
 
-import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
 
 import Camera.Camera;
+import Input.Command;
 import Input.PlayInputHandler;
 import World.World;
 
@@ -30,7 +31,12 @@ public class PlayState extends GameState {
 	}
 	
 	@Override
-	public void draw(Graphics2D g) {
-		view.draw(g);
+	public BufferedImage getScreen() {
+		return view.getScreen();
+	}
+
+	@Override
+	public void passInput(Command command) {
+		PlayInputHandler.passInput(command);
 	}
 }
