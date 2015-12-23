@@ -4,6 +4,7 @@ public enum Action {
 	INTERACT,
 	OPTION,
 	CANCEL,
+	MENU,
 	FIRE,
 	LUP,
 	LDOWN,

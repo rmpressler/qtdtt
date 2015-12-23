@@ -2,12 +2,17 @@ package World;
 
 import java.util.ArrayList;
 
+import javax.swing.JFileChooser;
+
+import static Game.SaveFile.*;
+
 import AI.EnemyAI;
 import Actor.HeroActor;
 import Actor.TestEnemyActor;
 import Camera.Renderable;
 import Game.Config;
 import Game.GameObject;
+import Game.SaveFile;
 import Physics.Collidable;
 import Physics.CollisionDetect;
 import Physics.CollisionHandler;
@@ -21,13 +26,20 @@ public class World {
 	private CollisionDetect collider;
 	private ArrayList<EnemyAI> aiControllers;
 	
+	String location;
+	
 	public World(String location) {
 		// Initialize fields
+		this.location = location;
 		renderables = new ArrayList<Renderable>();
 		aiControllers = new ArrayList<EnemyAI>();
 		collider = new CollisionDetect();
 		CollisionHandler.setWorld(this);
 		
+		
+	}
+	
+	public void setNewData() {
 		// Initialize tilemap
 		tm = new TileMap(location);
 		
@@ -184,5 +196,35 @@ public class World {
 
 	public void removeCollidableObject(Collidable c) {
 		collider.remove(c);
+	}
+	
+	public void setData(SaveFile sf) {
+		// Initialize tilemap
+		tm = new TileMap(location);
+		
+		// Initialize actors
+		hero = new HeroActor(tm);
+		hero.setStart(sf.getInt(PLAYER_X), sf.getInt(PLAYER_Y));
+		add(hero);
+		
+		// Create 10 ai-controlled enemies
+		for(int i = 0;i < 10; i++) {
+			TestEnemyActor tea = new TestEnemyActor(tm);
+			EnemyAI eai = new EnemyAI(tea, this);
+			aiControllers.add(eai);
+			add(tea);
+		}
+	}
+	
+	public void saveGame() {
+		SaveFile sf = new SaveFile();
+		
+		sf.setData(PLAYER_X, hero.getX());
+		sf.setData(PLAYER_Y, hero.getY());
+		
+		JFileChooser jfc = new JFileChooser();
+		jfc.showSaveDialog(null);
+		
+		sf.save(jfc.getSelectedFile());
 	}
 }

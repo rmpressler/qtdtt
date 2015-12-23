@@ -1,9 +1,12 @@
 package Input;
 
+import GameState.GameStateManager;
 import World.World;
+import static GameState.GameStateManager.*;
 
 public class PlayInputHandler {
 	public static World world;
+	public static GameStateManager gsm;
 	
 	public static void passInput(Command c) {
 		boolean toggle = c.getToggle();
@@ -14,6 +17,9 @@ public class PlayInputHandler {
 			world.getHero().fire(world);
 			break;
 		case INTERACT:
+			break;
+		case MENU:
+			gsm.setState(GameStateManager.PAUSESTATE);
 			break;
 		case LUP:
 			if(toggle) world.getHero().startMove("up");
@@ -32,6 +38,7 @@ public class PlayInputHandler {
 			else world.getHero().stopMove("right");
 			break;
 		case OPTION:
+			if(toggle) gsm.setState(INVENTORYSTATE);
 			break;
 		case RDOWN:
 			break;
@@ -49,5 +56,9 @@ public class PlayInputHandler {
 	
 	public static void setWorld(World newWorld) {
 		world = newWorld;
+	}
+	
+	public static void setGSM(GameStateManager gsm) {
+		PlayInputHandler.gsm = gsm;
 	}
 }

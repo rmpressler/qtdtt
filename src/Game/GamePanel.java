@@ -12,7 +12,7 @@ import Input.Keyboard;
 
 @SuppressWarnings("serial")
 public class GamePanel extends JPanel implements Runnable{
-	private static final int WINDOW_SIZE = Config.TILE_SIZE * Config.VIEW_SIZE;
+	public static final int WINDOW_SIZE = Config.TILE_SIZE * Config.VIEW_SIZE;
 	
 	private GameStateManager gsm;
 	private Keyboard kb;

@@ -22,6 +22,15 @@ public class Keyboard implements KeyListener {
 		case KeyEvent.VK_SPACE:
 			InputHandler.passInput(new Command(Action.FIRE, true));
 			break;
+		case KeyEvent.VK_ESCAPE:
+			InputHandler.passInput(new Command(Action.MENU, true));
+			break;
+		case KeyEvent.VK_ENTER:
+			InputHandler.passInput(new Command(Action.INTERACT, true));
+			break;
+		case KeyEvent.VK_I:
+			InputHandler.passInput(new Command(Action.OPTION, true));
+			break;
 		}
 	}
 
