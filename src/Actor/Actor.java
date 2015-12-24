@@ -393,5 +393,8 @@ public abstract class Actor extends GameObject implements Renderable,
 	 */
 	public void hit(int dmg) {
 		hp -= dmg;
+		if(hp <= 0) {
+			isAlive = false;
+		}
 	}
 }

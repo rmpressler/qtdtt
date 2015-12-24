@@ -6,6 +6,7 @@ import Camera.Camera;
 import Game.SaveFile;
 import Input.Command;
 import Input.PlayInputHandler;
+import Physics.CollisionHandler;
 import Player.Player;
 import World.World;
 
@@ -48,6 +49,7 @@ public class PlayState extends GameState {
 		player = new Player();
 		PlayInputHandler.setWorld(world);
 		PlayInputHandler.setGSM(gsm);
+		CollisionHandler.setPlayer(player);
 	}
 	
 	public void setData(SaveFile sf) {
@@ -56,6 +58,7 @@ public class PlayState extends GameState {
 		view = new Camera(world, 10);
 		PlayInputHandler.setWorld(world);
 		PlayInputHandler.setGSM(gsm);
+		CollisionHandler.setPlayer(player);
 	}
 	
 	public Player getPlayer() {

@@ -8,6 +8,7 @@ import javax.imageio.ImageIO;
 
 import Animation.SpriteImage;
 import Camera.ImageData;
+import Physics.HitBox;
 
 public class Sword extends Weapon {
 	public Sword(int width, int height) {
@@ -23,34 +24,49 @@ public class Sword extends Weapon {
 			e.printStackTrace();
 		}
 	}
+	
+	public void setCoords(int x, int y) {
+		this.x = x;
+		this.y = y;
+	}
 
 	@Override
 	public ImageData getImageData() {
-		// TODO Auto-generated method stub
-		return null;
+		return new ImageData(img, x, y);
 	}
 
 	@Override
 	public boolean isAlive() {
-		// TODO Auto-generated method stub
-		return false;
+		return true;
 	}
 
 	@Override
 	public void update() {
-		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	public int getX() {
-		// TODO Auto-generated method stub
-		return 0;
+		return x;
 	}
 
 	@Override
 	public int getY() {
-		// TODO Auto-generated method stub
-		return 0;
+		return y;
+	}
+
+	@Override
+	public HitBox getHitBox() {
+		return new HitBox(x, y, x + img.getWidth(), y + img.getHeight());
+	}
+
+	@Override
+	public String getType() {
+		return "sword";
+	}
+
+	@Override
+	public void hit(int dmg) {
+		
 	}
 }

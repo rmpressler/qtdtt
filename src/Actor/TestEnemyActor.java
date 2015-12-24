@@ -3,6 +3,8 @@ package Actor;
 import Animation.ActorAnimator;
 import Camera.ImageData;
 import Game.Config;
+import Inventory.Item;
+import Inventory.Sword;
 import Physics.HitBox;
 import TileMap.TileMap;
 
@@ -38,6 +40,15 @@ public class TestEnemyActor extends Actor{
 	@Override
 	public String getType() {
 		return "enemy";
+	}
+	
+	public Item getDrop(int width, int height) {
+		double rand = Math.random();
+		System.out.println("Rand: " + rand);
+		if(rand < .9) {
+			return new Sword(width, height);
+		}
+		else return null;
 	}
 
 	@Override

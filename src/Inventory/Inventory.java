@@ -73,6 +73,14 @@ public class Inventory {
 		return false;
 	}
 	
+	public int getBoxWidth() {
+		return boxWidth;
+	}
+	
+	public int getBoxHeight() {
+		return boxHeight;
+	}
+	
 	public void open() {
 		cursorX = 0;
 		cursorY = 0;
