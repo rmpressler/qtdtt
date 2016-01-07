@@ -1,0 +1,6 @@
+-Rewrite render and input
+-Convert to libGDX?
+-Implement Command pattern to input
+
+Buglist:
+-Enemies disappear but still collide

@@ -1,6 +1,8 @@
 package GameState;
 
-import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
+
+import Input.Command;
 
 public abstract class GameState {
 	protected GameStateManager gsm;
@@ -11,5 +13,6 @@ public abstract class GameState {
 	
 	public abstract void init();
 	public abstract void update();
-	public abstract void draw(Graphics2D g);
+	public abstract BufferedImage getScreen();
+	public abstract void passInput(Command command);
 }

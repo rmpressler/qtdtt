@@ -2,8 +2,10 @@ package GameState;
 
 import java.awt.Graphics2D;
 import java.awt.Image;
+import java.awt.image.BufferedImage;
 
 import Game.Config;
+import Input.Command;
 import TileMap.TileFactory;
 import TileMap.TileMap;
 
@@ -54,5 +56,17 @@ public class EditState extends GameState {
 		for(int i = 0; i < tMap.getHeight();i++) {
 			g.drawLine(0, i * tileSize, windowSize,  i * tileSize);
 		}
+	}
+
+	@Override
+	public BufferedImage getScreen() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void passInput(Command command) {
+		// TODO Auto-generated method stub
+		
 	}
 }

@@ -106,7 +106,8 @@ public class TileImage {
 		FilenameFilter filter = new FilenameFilter() {
 			public boolean accept(File dir, String name) {
 				String lowercaseName = name.toLowerCase();
-				if (lowercaseName.endsWith(filterTxt)) {
+//				if (lowercaseName.endsWith(filterTxt)) {
+				if (lowercaseName.endsWith(".png")) {
 					return true;
 				} else {
 					return false;

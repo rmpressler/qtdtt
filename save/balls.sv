@@ -1,0 +1,7 @@
+My Save Game
+
+PLAYER_Y
+667
+
+PLAYER_X
+344

@@ -2,11 +2,17 @@ package World;
 
 import java.util.ArrayList;
 
+import javax.swing.JFileChooser;
+
+import static Game.SaveFile.*;
+
 import AI.EnemyAI;
 import Actor.HeroActor;
 import Actor.TestEnemyActor;
 import Camera.Renderable;
 import Game.Config;
+import Game.GameObject;
+import Game.SaveFile;
 import Physics.Collidable;
 import Physics.CollisionDetect;
 import Physics.CollisionHandler;
@@ -20,29 +26,34 @@ public class World {
 	private CollisionDetect collider;
 	private ArrayList<EnemyAI> aiControllers;
 	
+	String location;
+	
 	public World(String location) {
-		//Initialize fields
+		// Initialize fields
+		this.location = location;
 		renderables = new ArrayList<Renderable>();
 		aiControllers = new ArrayList<EnemyAI>();
 		collider = new CollisionDetect();
 		CollisionHandler.setWorld(this);
 		
-		//Initialize tilemap
+		
+	}
+	
+	public void setNewData() {
+		// Initialize tilemap
 		tm = new TileMap(location);
 		
-		//Initialize actors
+		// Initialize actors
 		hero = new HeroActor(tm);
 		hero.setStart(200, 400);
-		renderables.add(hero);
-		collider.add(hero);
+		add(hero);
 		
-		//Create 10 ai-controlled enemies
+		// Create 10 ai-controlled enemies
 		for(int i = 0;i < 10; i++) {
 			TestEnemyActor tea = new TestEnemyActor(tm);
 			EnemyAI eai = new EnemyAI(tea, this);
 			aiControllers.add(eai);
-			renderables.add(tea);
-			collider.add(tea);
+			add(tea);
 		}
 	}
 	
@@ -56,7 +67,7 @@ public class World {
 					r.getX() > tm.getWidth() * Config.TILE_SIZE ||
 					r.getY() > tm.getHeight() * Config.TILE_SIZE ||
 					!r.isAlive()) {
-				renderables.remove(r);
+				remove((GameObject)r);
 				System.out.println("Removing object");
 			}
 			else r.update();
@@ -70,6 +81,26 @@ public class World {
 	
 	public HeroActor getHero() {
 		return hero;
+	}
+	
+	public void add(GameObject o) {
+		if(o.isRenderable()) {
+			renderables.add((Renderable)o);
+		}
+		
+		if(o.isCollidable()) {
+			collider.add((Collidable)o);
+		}
+	}
+	
+	public void remove(GameObject o) {
+		if(o.isRenderable()) {
+			renderables.remove(o);
+		}
+		
+		if(o.isCollidable()) {
+			collider.remove((Collidable)o);
+		}
 	}
 	
 	public Renderable[] getRenderables() {
@@ -165,5 +196,35 @@ public class World {
 
 	public void removeCollidableObject(Collidable c) {
 		collider.remove(c);
+	}
+	
+	public void setData(SaveFile sf) {
+		// Initialize tilemap
+		tm = new TileMap(location);
+		
+		// Initialize actors
+		hero = new HeroActor(tm);
+		hero.setStart(sf.getInt(PLAYER_X), sf.getInt(PLAYER_Y));
+		add(hero);
+		
+		// Create 10 ai-controlled enemies
+		for(int i = 0;i < 10; i++) {
+			TestEnemyActor tea = new TestEnemyActor(tm);
+			EnemyAI eai = new EnemyAI(tea, this);
+			aiControllers.add(eai);
+			add(tea);
+		}
+	}
+	
+	public void saveGame() {
+		SaveFile sf = new SaveFile();
+		
+		sf.setData(PLAYER_X, hero.getX());
+		sf.setData(PLAYER_Y, hero.getY());
+		
+		JFileChooser jfc = new JFileChooser();
+		jfc.showSaveDialog(null);
+		
+		sf.save(jfc.getSelectedFile());
 	}
 }

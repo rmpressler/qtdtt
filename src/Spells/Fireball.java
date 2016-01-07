@@ -6,11 +6,12 @@ import Animation.SpellAnimator;
 import Camera.ImageData;
 import Camera.Renderable;
 import Game.Config;
+import Game.GameObject;
 import Physics.Collidable;
 import Physics.HitBox;
 import World.World;
 
-public class Fireball implements Renderable,
+public class Fireball extends GameObject implements Renderable,
 								Collidable{
 	private int x;
 	private int y;
@@ -34,6 +35,9 @@ public class Fireball implements Renderable,
 		this.img = sa.getImage();
 		this.isAlive = true;
 		this.dmg = 5;
+		
+		setRenderable(true);
+		setCollidable(true);
 	}
 	
 	public int getX() {

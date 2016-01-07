@@ -19,13 +19,12 @@ public class Trigger {
 		val = c.getPollData();
 		if(val <= -0.8 && val >= -1.1) {
 			if(!pulledRight) {
-				InputHandler.activateAction1();
 				pulledRight = true;
 			}
 		}
 		else if(val > 0.8 && val < 1.1){
 			if(!pulledLeft) {
-				InputHandler.activateAction0();
+				InputHandler.passInput(new Command(Action.FIRE));
 				pulledLeft = true;
 			}
 		}

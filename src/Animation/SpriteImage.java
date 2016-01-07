@@ -1,6 +1,8 @@
 package Animation;
 
 import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
 import java.io.File;
@@ -113,7 +115,8 @@ public class SpriteImage {
 		FilenameFilter filter = new FilenameFilter() {
 			public boolean accept(File dir, String name) {
 				String lowercaseName = name.toLowerCase();
-				if (lowercaseName.endsWith(filterTxt)) {
+//				if (lowercaseName.endsWith(filterTxt)) {
+				if (lowercaseName.endsWith(".png")) {
 					return true;
 				} else {
 					return false;
@@ -121,6 +124,15 @@ public class SpriteImage {
 			}
 		};
 		return directory.list(filter);
+	}
+	
+	public static BufferedImage scale(BufferedImage oldImage, int newWidth, int newHeight) {
+		BufferedImage newImage = new BufferedImage(newWidth, newHeight, BufferedImage.TYPE_INT_ARGB);
+		Graphics2D g = (Graphics2D) newImage.getGraphics();
+		Image temp = oldImage.getScaledInstance(newWidth, newHeight, Image.SCALE_AREA_AVERAGING);
+		g.drawImage(temp,  0,  0,  null);
+		g.dispose();
+		return newImage;
 	}
 	
 	public BufferedImage getImage(String imageName) {
