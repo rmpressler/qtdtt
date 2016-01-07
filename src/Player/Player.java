@@ -14,4 +14,10 @@ public class Player {
 	public Inventory getInventory() {
 		return inv;
 	}
+	
+	public void setInventory(Inventory inv) {
+		if(inv == null) {
+			this.inv = inv;
+		}
+	}
 }

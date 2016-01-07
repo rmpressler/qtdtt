@@ -5,3 +5,6 @@ PLAYER_X
 
 PLAYER_Y
 800
+
+INVENTORY
+Sword

@@ -13,7 +13,6 @@ import Camera.Renderable;
 import Game.Config;
 import Game.GameObject;
 import Game.SaveFile;
-import Inventory.Item;
 import Physics.Collidable;
 import Physics.CollisionDetect;
 import Physics.CollisionHandler;

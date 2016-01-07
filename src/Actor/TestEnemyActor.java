@@ -45,7 +45,7 @@ public class TestEnemyActor extends Actor{
 	public Item getDrop(int width, int height) {
 		double rand = Math.random();
 		System.out.println("Rand: " + rand);
-		if(rand < .9) {
+		if(rand < .5) {
 			return new Sword(width, height);
 		}
 		else return null;

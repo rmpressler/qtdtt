@@ -1,6 +1,5 @@
 package GameState;
 
-import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 
 import Input.Command;

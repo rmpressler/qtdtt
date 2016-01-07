@@ -9,6 +9,8 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.HashMap;
 
+import Inventory.Inventory;
+
 /**Handles all load/save operations of save files.
  * 
  * Save file format:
@@ -107,6 +109,24 @@ public class SaveFile {
 	
 	public String getStr(String key) {
 		return saveData.get(key);
+	}
+	
+	public Inventory getInventory() {
+		Inventory inv = new Inventory();
+		
+		String invStr = saveData.get("INVENTORY");
+		String[] invItems = invStr.split(",");
+		
+//		for(String item: invItems) {
+////			try {
+////				Class itemClass = Class.forName(item);
+////				Class[] types = {Double.TYPE, this.getClass()};
+////			} catch (ClassNotFoundException e) {
+////				e.printStackTrace();
+////			}
+//		}
+		
+		return inv;
 	}
 	
 	public void setData(String key, String data) {

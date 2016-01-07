@@ -2,7 +2,9 @@ package Physics;
 
 import Actor.TestEnemyActor;
 import Camera.Renderable;
+import Game.GameObject;
 import Inventory.Item;
+import Inventory.Sword;
 import World.World;
 import Player.Player;
 
@@ -48,6 +50,19 @@ public class CollisionHandler {
 			}
 			world.removeCollidableObject(b);
 			world.removeRenderableObject((Renderable)b);
+		}
+		else if(b.getType() == "sword" && a.getType() == "hero") {
+			world.removeCollidableObject(b);
+			world.removeRenderableObject((Renderable)b);
+			
+			player.getInventory().add((Sword)b);
+		}
+		
+		else if(a.getType() == "sword" && b.getType() == "hero") {
+			world.removeCollidableObject(a);
+			world.removeRenderableObject((Renderable)a);
+			
+			player.getInventory().add((Sword)a);
 		}
 	}
 

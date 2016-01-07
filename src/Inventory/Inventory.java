@@ -9,6 +9,7 @@ import javax.imageio.ImageIO;
 
 import Animation.SpriteImage;
 import Game.GamePanel;
+import Game.SaveFile;
 
 public class Inventory {
 	private Item[][] items;
@@ -50,9 +51,6 @@ public class Inventory {
 		
 		boxWidth = img.getWidth() / 10;
 		boxHeight = img.getHeight() / 7;
-		
-		add(new Sword(boxWidth, boxHeight));
-		add(new Sword(boxWidth, boxHeight));
 	}
 	
 	/**Adds an Item to the current Inventory.
@@ -63,7 +61,8 @@ public class Inventory {
 	public boolean add(Item item) {
 		for(int i = 0;i < 5;i++) {
 			for(int j = 0;j < 5;j++) {
-				if(items[i][j] == null) {
+				if(items[j][i] == null) {
+					System.out.println("Adding item");
 					items[j][i] = item;
 					return true;
 				}

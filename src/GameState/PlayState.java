@@ -56,6 +56,9 @@ public class PlayState extends GameState {
 		world = new World(".\\assets\\maps\\sandbox.map");
 		world.setData(sf);
 		view = new Camera(world, 10);
+		player = new Player();
+		player.setInventory(sf.getInventory());
+		//template | player.getInventory().add(item)
 		PlayInputHandler.setWorld(world);
 		PlayInputHandler.setGSM(gsm);
 		CollisionHandler.setPlayer(player);

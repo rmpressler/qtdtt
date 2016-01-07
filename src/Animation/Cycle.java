@@ -18,7 +18,8 @@ public class Cycle {
 		if(cycles.get(cycleName) == null) {
 			cycles.put(cycleName, 1);
 			BufferedImage img = sprites.getImage(cycleName + "_" + 1);
-			cycles.replace(cycleName, 2);
+			//cycles.replace(cycleName, 2);
+			cycles.put(cycleName, 2);
 			return img;
 		}
 		
@@ -29,8 +30,10 @@ public class Cycle {
 		}
 		
 		BufferedImage img = sprites.getImage(cycleName + "_" + frameNum);
-		if(frameNum == 2) cycles.replace(cycleName, 1);
-		else cycles.replace(cycleName, cycles.get(cycleName) + 1);
+//		if(frameNum == 2) cycles.replace(cycleName, 1);
+		if(frameNum == 2) cycles.put(cycleName, 1);
+//		else cycles.replace(cycleName, cycles.get(cycleName) + 1);
+		else cycles.put(cycleName, cycles.get(cycleName) + 1);
 		lastFrameTime = System.nanoTime();
 		return img;
 	}
